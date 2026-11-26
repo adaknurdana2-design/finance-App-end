@@ -15,9 +15,21 @@ import TransactionScreen from './src/screens/TransactionScreen';
 import NotificationScreen from './src/screens/NotificationScreen';
 import AccountBalanceScreen from './src/screens/AccountBalanceScreen';
 import CategoriesScreen from './src/screens/CategoriesScreen';
+import LaunchScreen from './src/screens/LaunchScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
+import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
+import SecurityPinScreen from './src/screens/SecurityPinScreen';
+import NewPasswordScreen from './src/screens/NewPasswordScreen';
 
 type RouteName =
   | AppTabKey
+  | 'Launch'
+  | 'Login'
+  | 'SignUp'
+  | 'ForgotPassword'
+  | 'SecurityPin'
+  | 'NewPassword'
   | 'Search'
   | 'Calendar'
   | 'Notification'
@@ -80,8 +92,8 @@ const HOME_TRANSACTIONS: HomeTx[] = [
 ];
 
 export default function App() {
-  const [currentRoute, setCurrentRoute] = useState<RouteName>('Home');
-  const [history, setHistory] = useState<RouteName[]>(['Home']);
+  const [currentRoute, setCurrentRoute] = useState<RouteName>('Launch');
+  const [history, setHistory] = useState<RouteName[]>(['Launch']);
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodKey>('Weekly');
   const [homeFilter, setHomeFilter] = useState<PeriodFilter>('Monthly');
 
@@ -97,8 +109,8 @@ export default function App() {
   const goBack = () => {
     setHistory((prev) => {
       if (prev.length <= 1) {
-        setCurrentRoute('Home');
-        return ['Home'];
+        setCurrentRoute('Launch');
+        return ['Launch'];
       }
       const next = prev.slice(0, -1);
       setCurrentRoute(next[next.length - 1]);
@@ -113,6 +125,18 @@ export default function App() {
   };
 
   switch (currentRoute) {
+    case 'Launch':
+      return <LaunchScreen navigation={navigation} />;
+    case 'Login':
+      return <LoginScreen navigation={navigation} />;
+    case 'SignUp':
+      return <SignUpScreen navigation={navigation} />;
+    case 'ForgotPassword':
+      return <ForgotPasswordScreen navigation={navigation} />;
+    case 'SecurityPin':
+      return <SecurityPinScreen navigation={navigation} />;
+    case 'NewPassword':
+      return <NewPasswordScreen navigation={navigation} />;
     case 'Analysis':
       return (
         <AnalysisScreen
